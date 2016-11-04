@@ -1,10 +1,12 @@
 package br.ufrn.imd.consultantfouls;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,7 +39,26 @@ public class ResultActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Aguarde ...");
         pDialog.setCancelable(false);
+
+        test();
         reqJson();
+    }
+
+    void test(){
+        RoundCornerProgressBar progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
+        progress1.setProgressColor(Color.parseColor("#ed3b27"));
+        progress1.setProgressBackgroundColor(Color.parseColor("#808080"));
+        progress1.setMax(70);
+        progress1.setProgress(15);
+
+
+        int progressColor1 = progress1.getProgressColor();
+        int backgroundColor1 = progress1.getProgressBackgroundColor();
+        float max1 = progress1.getMax();
+        float progress_f = progress1.getProgress();
+
+
+
     }
 
     private static final String ACESS_VINCULO_USER = "http://apitestes.info.ufrn.br/ensino-services/services/consulta/listavinculos/usuario";
