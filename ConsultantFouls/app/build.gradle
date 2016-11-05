@@ -26,8 +26,8 @@ dependencies {
         exclude module : 'support-v4'
     }
 
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:design:23.1.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 }
