@@ -24,6 +24,7 @@ import com.wuman.android.auth.AuthorizationUIController;
 import com.wuman.android.auth.DialogFragmentController;
 import com.wuman.android.auth.OAuthManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +45,6 @@ public class OAuthTokenRequest {
     public static OAuthTokenRequest getInstance(){
         if(oAuthTokenRequest == null)
             oAuthTokenRequest = new OAuthTokenRequest();
-
         return oAuthTokenRequest;
     }
 
@@ -52,7 +52,6 @@ public class OAuthTokenRequest {
     }
 
     public Credential getTokenCredential(final Activity activity, String oauthServerURL, String clientId, String clientSecret, final Intent i){
-
         this.clientId = clientId;
         this.clientSecret = clientSecret;
 
@@ -68,10 +67,8 @@ public class OAuthTokenRequest {
         AuthorizationFlow flow = builder.build();
 
         AuthorizationUIController controller = new DialogFragmentController(activity.getFragmentManager()) {
-
             @Override
             public String getRedirectUri() throws IOException {
-                //return "http://android.local/";
                 return "http://localhost/Callback";
             }
 
@@ -79,7 +76,6 @@ public class OAuthTokenRequest {
             public boolean isJavascriptEnabledForWebView() {
                 return true;
             }
-
         };
 
         oauth = new OAuthManager(flow, controller);
@@ -111,24 +107,24 @@ public class OAuthTokenRequest {
     }
 
     public void resourceRequest(Context context, int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener){
-        RequestQueue queue = Volley.newRequestQueue(context);
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,listener, errorListener) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<String, String>();
-                String auth = "Bearer "+ credential.getAccessToken();
-                headers.put("Authorization", auth);
-                VolleyLog.d("Authorization"+auth, auth);
-                return headers;
-            }
-        };
-
-
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+//        RequestQueue queue = Volley.newRequestQueue(context);
+//
+//        // Request a string response from the provided URL.
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,listener, errorListener) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> headers = new HashMap<String, String>();
+//                String auth = "Bearer "+ credential.getAccessToken();
+//                headers.put("Authorization", auth);
+//                VolleyLog.d("Authorization"+auth, auth);
+//                return headers;
+//            }
+//        };
+//
+//
+//
+//        // Add the request to the RequestQueue.
+//        queue.add(stringRequest);
 
     }
 
@@ -173,9 +169,10 @@ public class OAuthTokenRequest {
     }
 
     public void logout(Context context, String url) {
-        WebView w= new WebView(context);
+        WebView w = new WebView(context);
         w.loadUrl(url);
         credential = null;
+        oAuthTokenRequest = null;
     }
 }
 

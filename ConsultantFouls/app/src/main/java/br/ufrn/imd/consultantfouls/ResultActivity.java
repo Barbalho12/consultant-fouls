@@ -4,7 +4,14 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.android.volley.AuthFailureError;
@@ -29,52 +36,47 @@ public class ResultActivity extends AppCompatActivity {
 
     private String jsonResponse;
     private ProgressDialog pDialog;
-    private TextView texto;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
-        texto = (TextView) findViewById(R.id.textoJson);
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Aguarde ...");
-        pDialog.setCancelable(false);
-
-        test();
-        reqJson();
-    }
-
-    void test(){
-        RoundCornerProgressBar progress1 = (RoundCornerProgressBar) findViewById(R.id.progress_1);
-        progress1.setProgressColor(Color.parseColor("#ed3b27"));
-        progress1.setProgressBackgroundColor(Color.parseColor("#808080"));
-        progress1.setMax(70);
-        progress1.setProgress(15);
-
-
-        int progressColor1 = progress1.getProgressColor();
-        int backgroundColor1 = progress1.getProgressBackgroundColor();
-        float max1 = progress1.getMax();
-        float progress_f = progress1.getProgress();
-
-
-
-    }
+    //private TextView texto;
 
     private static final String ACESS_VINCULO_USER = "http://apitestes.info.ufrn.br/ensino-services/services/consulta/listavinculos/usuario";
     private String urlJsonObjC = null;
     private int idDiscente = 0;
     private List<Integer> idsTurmas = new ArrayList<>();
     private List<String> nomesTurmas = new ArrayList<>();
+    private List<String> viewInfor = new ArrayList<>();
     private List<String> infoUserPerTurma = new ArrayList<>();
     private List<String> enderecos = new ArrayList<>();
     private int qtdEnd = 0;
     private RequestQueue queue = null;
 
+    private ListView listView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_result);
+//        pDialog = new ProgressDialog(this);
+//        pDialog.setCancelable(false);
+
+        listView = (ListView) findViewById (R.id.disciplinaListView);
+
+        reqJson();
+    }
+    void test(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, viewInfor);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String  itemValue = ((String) listView.getItemAtPosition(position)) ;
+                Toast.makeText(getApplicationContext(), infoUserPerTurma.get(position), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     Response.Listener<String> responseListTurmas = new Response.Listener<String>(){
         @Override
         public void onResponse(String response) {
-            texto.setText(response);
             try {
                 JSONArray turmas = new JSONArray(response);
                 for (int i = 0; i < turmas.length(); i++) {
@@ -104,12 +106,14 @@ public class ResultActivity extends AppCompatActivity {
                 int cgHor = jsonObject.getInt("cargaHoraria");
                 int cgHorM = jsonObject.getInt("cargaHorariaMinistrada");
                 String dtUltAt = jsonObject.getString("dataUltimaAtualizacao");
-                infoUserPerTurma.add(qntdAM + ", " + qntdAA + ", " + cgHor+ ", " + cgHorM);
-
+                int faltas = (qntdAM - qntdAA);
+                int maxfaltas = ((cgHor*60)/45)/4 -1;
+                infoUserPerTurma.add(faltas+ "/" + maxfaltas + " falt/max");
+                viewInfor.add(nomesTurmas.get(qtdEnd) + "\n"+ faltas+ "/" + maxfaltas + " falt/max");
                 if(qtdEnd<enderecos.size()-1)
                     queue.add(createSringRquest(enderecos.get(qtdEnd++), responseFrequenciaAluno));
                 else{
-                    show();
+                    test();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -125,7 +129,6 @@ public class ResultActivity extends AppCompatActivity {
         Response.Listener<String> responseInfoVinculoUser = new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
-                texto.setText(response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray discentes = jsonObject.getJSONArray("discentes");
@@ -160,14 +163,6 @@ public class ResultActivity extends AppCompatActivity {
             }
         };
         return stringRequest1;
-    }
-
-    private void show() {
-        jsonResponse = "";
-        for(int i = 0; i < idsTurmas.size(); i++){
-            jsonResponse += nomesTurmas.get(i) +": "+infoUserPerTurma.get(i) + "\n";
-        }
-        texto.setText(jsonResponse);
     }
 
 }
