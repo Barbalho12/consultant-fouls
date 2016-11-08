@@ -1,4 +1,4 @@
-package br.ufrn.imd.consultantfouls;
+package views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import adapters.ListenerAdapter;
+import model.DisciplinaFaltas;
+import auth.OAuthTokenRequest;
+import br.ufrn.imd.consultantfouls.R;
 
-public class ResultActivity extends AppCompatActivity {
+
+public class ProcessingActivity extends AppCompatActivity {
 
     private static final String ACESS_VINCULO_USER = "http://apitestes.info.ufrn.br/ensino-services/services/consulta/listavinculos/usuario";
 
@@ -68,7 +73,7 @@ public class ResultActivity extends AppCompatActivity {
                     VolleyLog.d("Quantidade - "+listDisciplinaFaltas.size()+" - "+qtd_turmas, qtd_turmas);
                     progressBar.setProgress(listDisciplinaFaltas.size());
                     if(listDisciplinaFaltas.size()==qtd_turmas){
-                        Intent intent  = new Intent(ResultActivity.this, ListActivity.class);
+                        Intent intent  = new Intent(ProcessingActivity.this, ListActivity.class);
                         intent.putExtra("listafaltas", (Serializable) listDisciplinaFaltas);
                         startActivity(intent);
                     }

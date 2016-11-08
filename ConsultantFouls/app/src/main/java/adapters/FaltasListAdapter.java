@@ -1,4 +1,4 @@
-package br.ufrn.imd.consultantfouls;
+package adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
+
+import model.DisciplinaFaltas;
+import br.ufrn.imd.consultantfouls.R;
 
 public class FaltasListAdapter extends ArrayAdapter<DisciplinaFaltas> {
     public FaltasListAdapter(Context context, int textViewResourceId, List<DisciplinaFaltas> objects) {

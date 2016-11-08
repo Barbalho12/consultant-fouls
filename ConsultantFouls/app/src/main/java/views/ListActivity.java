@@ -1,10 +1,14 @@
-package br.ufrn.imd.consultantfouls;
+package views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import java.util.List;
+
+import adapters.FaltasListAdapter;
+import model.DisciplinaFaltas;
+import br.ufrn.imd.consultantfouls.R;
 
 public class ListActivity extends AppCompatActivity {
 

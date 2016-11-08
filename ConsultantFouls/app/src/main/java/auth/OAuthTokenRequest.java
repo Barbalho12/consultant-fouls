@@ -1,4 +1,4 @@
-package br.ufrn.imd.consultantfouls;
+package auth;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,13 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.webkit.WebView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
 import com.google.api.client.auth.oauth2.Credential;
@@ -24,10 +18,7 @@ import com.wuman.android.auth.AuthorizationUIController;
 import com.wuman.android.auth.DialogFragmentController;
 import com.wuman.android.auth.OAuthManager;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Mario on 04/11/2015.

@@ -1,4 +1,4 @@
-package br.ufrn.imd.consultantfouls;
+package adapters;
 
 import com.android.volley.Response;
 

@@ -1,4 +1,4 @@
-package br.ufrn.imd.consultantfouls;
+package model;
 
 import java.io.Serializable;
 

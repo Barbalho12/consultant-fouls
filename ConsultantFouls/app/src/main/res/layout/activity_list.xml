@@ -4,7 +4,7 @@
     android:id="@+id/activity_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.ufrn.imd.consultantfouls.ListActivity">
+    tools:context="br.ufrn.imd.consultantfouls.views.ListActivity">
 
     <ListView
         android:id="@+id/disciplinaListView"
