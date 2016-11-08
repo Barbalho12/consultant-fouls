@@ -18,15 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void consultar(View v) {
         if (isOnline()){
-
             try{
-
                 Intent intent = new Intent(this, ResultActivity.class);
                 OAuthTokenRequest.getInstance().getTokenCredential(this,"http://apitestes.info.ufrn.br/authz-server","sise-id", "segredo", intent);
             }catch (Exception ERR){
                 Toast.makeText(getApplicationContext(), "Erro ao tentar fazer login", Toast.LENGTH_LONG).show();
             }
-
         }else{
             Toast.makeText(getApplicationContext(), "Erro ao tentar se conectar a Internet", Toast.LENGTH_LONG).show();
         }
@@ -41,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Erro ao tentar deslogar", Toast.LENGTH_LONG).show();
         }
     }
-
 
     private boolean isOnline() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

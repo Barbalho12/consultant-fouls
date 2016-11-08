@@ -1,8 +1,9 @@
-
 <resources>
     <string name="app_name">ConsultantFouls</string>
     <string name="title_activity_result">ResultActivity</string>
     <string name="action_settings">Settings</string>
     <string name="logintxt">Consultar</string>
     <string name="sair_btn">Sair</string>
+    <string name="info_faltas">info_faltas</string>
+    <string name="nome_disciplina">info_faltas</string>
 </resources>

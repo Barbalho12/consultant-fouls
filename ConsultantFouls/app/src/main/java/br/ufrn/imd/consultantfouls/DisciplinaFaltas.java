@@ -1,17 +1,27 @@
 package br.ufrn.imd.consultantfouls;
 
-/**
- * Created by Barreto on 07/11/2016.
- */
+import java.io.Serializable;
 
-public class DisciplinaFaltas {
+public class DisciplinaFaltas  implements Serializable {
+    private String nomeDisciplina;
     private int qntdAulasMinistradas;
     private int qntdAulasAssistidas;
     private int cargaHoraria;
     private int cargaHorariaMinistrada;
     private String dataUltimaAtualizacao;
 
+
+
     public DisciplinaFaltas() {
+    }
+
+    public DisciplinaFaltas(String nomeDisciplina, int qntdAulasMinistradas, int qntdAulasAssistidas, int cargaHoraria, int cargaHorariaMinistrada, String dataUltimaAtualizacao) {
+        this.nomeDisciplina = nomeDisciplina;
+        this.qntdAulasMinistradas = qntdAulasMinistradas;
+        this.qntdAulasAssistidas = qntdAulasAssistidas;
+        this.cargaHoraria = cargaHoraria;
+        this.cargaHorariaMinistrada = cargaHorariaMinistrada;
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
     public DisciplinaFaltas(int qntdAulasMinistradas, int qntdAulasAssistidas, int cargaHoraria, int cargaHorariaMinistrada, String dataUltimaAtualizacao) {
@@ -60,5 +70,13 @@ public class DisciplinaFaltas {
 
     public void setDataUltimaAtualizacao(String dataUltimaAtualizacao) {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+    }
+
+    public String getNomeDisciplina() {
+        return nomeDisciplina;
+    }
+
+    public void setNomeDisciplina(String nomeDisciplina) {
+        this.nomeDisciplina = nomeDisciplina;
     }
 }
