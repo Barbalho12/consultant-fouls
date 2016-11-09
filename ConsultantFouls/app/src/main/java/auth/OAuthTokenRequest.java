@@ -46,6 +46,11 @@ public class OAuthTokenRequest {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
 
+        if(credential != null){
+            activity.startActivity(i);
+            return credential;
+        }
+
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
                 AndroidHttp.newCompatibleTransport(),
@@ -97,28 +102,6 @@ public class OAuthTokenRequest {
         return credential;
     }
 
-    public void resourceRequest(Context context, int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener){
-//        RequestQueue queue = Volley.newRequestQueue(context);
-//
-//        // Request a string response from the provided URL.
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,listener, errorListener) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String> headers = new HashMap<String, String>();
-//                String auth = "Bearer "+ credential.getAccessToken();
-//                headers.put("Authorization", auth);
-//                VolleyLog.d("Authorization"+auth, auth);
-//                return headers;
-//            }
-//        };
-//
-//
-//
-//        // Add the request to the RequestQueue.
-//        queue.add(stringRequest);
-
-    }
-
     public Credential getCredential() {
         return credential;
     }
@@ -162,8 +145,13 @@ public class OAuthTokenRequest {
     public void logout(Context context, String url) {
         WebView w = new WebView(context);
         w.loadUrl(url);
+//        w.clearCache(true);
+//        w.clearSslPreferences();
+//        w.clearFormData();
+//        w.clearMatches();
         credential = null;
-        oAuthTokenRequest = null;
+//        oauth = null;
+
     }
 }
 
